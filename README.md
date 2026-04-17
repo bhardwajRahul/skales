@@ -17,8 +17,11 @@
 </p>
   <h1>Skales 🦎</h1>
   <p>
-    <strong>Your Local AI Desktop Agent for Windows, macOS & Linux</strong>
+    <strong>Local AI Desktop Agent for Windows, macOS & Linux</strong>
   </p>
+  <p>
+  <sub>iOS & Android currently in Beta - Q2 2026</sub>
+    </p>
 <p>
     <a href="https://github.com/skalesapp/skales/releases/tag/v10.0.0"><img src="https://img.shields.io/badge/version-10.0.0-10b981?style=flat-square" alt="Version 10.0.0" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/license-BSL_1.1-10b981?style=flat-square" alt="License" /></a>
@@ -225,7 +228,7 @@ Like Spotify Wrapped for your AI. Auto-generates every Monday. Activities, top t
 
 > 🐧 **Linux:** AppImage. `chmod +x` and run.
 
-> 📱 **Android:** Skales Mobile app — pair to your Desktop via QR, or run standalone. Submitted to Play Store (beta, closed testing). Get it at [skales.app/mobile](https://skales.app/mobile).
+> 📱 **Android:** Skales Mobile app — pair to your Desktop via QR, or run standalone. Submitted to Play Store (beta, closed testing).
 
 > 🔄 **Switching tools?** Import from ChatGPT, Claude, Copilot, Gemini, OpenClaw, Hermes. Settings > Import.
 
