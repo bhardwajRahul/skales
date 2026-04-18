@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# CHANGELOG.md — v10.0.2 Entry
+
+## [10.0.2] — 2026-04-18
+
+### Fixed
+
+- **Tool Filter Regression (critical).** Disabled the context-aware tool filter introduced in v9.2.1 which was silently dropping core tools (`send_telegram_message`, `write_file`, `create_directory`, and others) based on keyword matching. This was the root cause of the widespread "Unknown tool" errors users reported after v10.0.0. All tools are now available in every conversation until a safer allow-list approach lands in v10.1.
+- **Export Dialog "Source path not allowed".** The `copy-file` IPC handler now accepts `os.tmpdir()` as a valid source path. In v10.0.1 the export bundle ZIP was written to the OS temp directory, but the handler's whitelist only permitted `DATA_DIR`, so exports failed silently.
+- **Multi-Step Exit Guard.** The ReAct loop now only exits when the model returns zero tool calls. Previously, response text emitted alongside tool calls (e.g. "let me continue with...") was incorrectly interpreted as an exit signal, breaking legitimate multi-step tasks.
+
+### Improved
+
+- **`SAME_TOOL_NAME_HARD_CAP` raised 3 → 15.** The per-turn cap on how often a single tool name can be called was too low to support normal bulk operations (creating 5+ folders, writing 10 files). Infinite loops with identical arguments are still caught by stall detection (2 identical calls) and the dedup tracker (2 identical args), so this only affects legitimate bulk work.
+- **Progress-Speak Auto-Continue.** When a model made tool calls in previous iterations but then stops with short progress-style text ("let me continue", "jetzt erstelle ich die restlichen", "remaining", etc.), the orchestrator now automatically re-prompts it to finish via tool calls instead of exiting the loop. Mitigates Sonnet 3.7's mid-task pause behavior on bulk operations.
+
+### Known Issues
+
+- Sonnet 3.7 may still pause on 5+ item bulk tasks despite auto-continue. Use Claude Opus 4, Sonnet 4, or Minimax for guaranteed single-shot bulk execution.
+- Minimax models may emit tool calls as JSON text in chat instead of real function calls for some prompts.
+- Codework UI may appear frozen for 1–2 seconds before streaming catches up; backend is working.
+- Multi-Agent Dispatch toast notification is not currently firing; check the Tasks tab for progress.
+
+---
 
 ## v10.0.1 — Hotfix (April 17, 2026)
 
